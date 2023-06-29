@@ -14,6 +14,7 @@ for i in range(2, len(txt)):
 atomsSet = list(set(atoms))
 
 cats = [[] for i in range(len(atomsSet))]
+alls = [[] for i in range(3)]
 
 def fl(val, order):
     if val > 0:
@@ -32,15 +33,18 @@ def minus(mat):
 for i in range(2, len(txt)):
     n = atomsSet.index(txt[i][0])
     cats[n].append([fl(float(txt[i][1]), 5), fl(float(txt[i][2]),5), fl(float(txt[i][3].replace("\n", "")), 5)])
+    alls[0].append(fl(float(txt[i][1]), 5))
+    alls[1].append(fl(float(txt[i][2]), 5))
+    alls[2].append(fl(float(txt[i][3]), 5))
 
 #print(cats[0])
 
-for i in range(len(cats)):
-    x = fl((max(np.array(cats[i]).T[0]) + min(np.array(cats[i]).T[0]))/2, 5)
-    y = fl((max(np.array(cats[i]).T[1]) + min(np.array(cats[i]).T[1]))/2, 5)
-    z = fl((max(np.array(cats[i]).T[2]) + min(np.array(cats[i]).T[2]))/2, 5)
-    means = [x, y, z]
+x = fl((max(alls[0]) + min(alls[0]))/2, 5)
+y = fl((max(alls[1]) + min(alls[1]))/2, 5)
+z = fl((max(alls[2]) + min(alls[2]))/2, 5)
+means = [x, y, z]
 
+for i in range(len(cats)):
     for j in range(len(cats[i])):
         for k in range(3):
             cats[i][j][k] = fl(cats[i][j][k] - means[k], 2)
